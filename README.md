@@ -15,27 +15,20 @@ Install NixOS 25.11 and ensure you have an internet connection.
 
 ### 2. Clone the Repository
 ```bash
-```
-```
 git clone https://github.com/your-username/magos-dotfiles ~/magos-dotfiles
 cd ~/magos-dotfiles
-```
 ```
 
 ### 3. Generate Hardware Config
 If on new hardware, run:
 ```bash
-```
 sudo nixos-generate-config --show-hardware-config > ./nixos/hardware-configuration.nix
-```
 ```
 
 ### 4. Apply the Configuration
 Run:
 ```bash
-```
 sudo nixos-rebuild switch --flake .#magos
-```
 ```
 
 ## Maintenance
@@ -43,27 +36,21 @@ sudo nixos-rebuild switch --flake .#magos
 ### Rebuild After Changes
 Run:
 ```bash
-```
 git add .
 sudo nixos-rebuild switch --flake .#magos
-```
 ```
 
 ### Update Packages
 Run:
 ```bash
-```
 nix flake update
 sudo nixos-rebuild switch --flake .#magos
-```
 ```
 
 ### Garbage Collection
 Run:
 ```bash
-```
 sudo nix-collect-garbage -d
-```
 ```
 
 ## Important Notes
