@@ -31,6 +31,34 @@ Run:
 sudo nixos-rebuild switch --flake .#magos
 ```
 
+## Adding a WordPress Site
+
+This configuration uses a **Pure Flake** approach. Each WordPress site is a separate Flake that exports a NixOS module.
+
+### 1. Prepare the Site Flake
+Ensure the site repository (e.g., `/srv/www/mysite`) has a `flake.nix` that exports `nixosModules.vhost`.
+
+### 2. Register in `flake.nix`
+Edit `~/magos-dotfiles/flake.nix` to register the site:
+
+1.  **Add to `inputs`:**
+    ```nix
+    mysite.url = "path:/srv/www/mysite";
+    ```
+2.  **Add to `sites` list:**
+    ```nix
+    sites = [
+      inputs.k2a.nixosModules.vhost
+      inputs.mysite.nixosModules.vhost
+    ];
+    ```
+
+### 3. Rebuild
+```bash
+git add flake.nix
+sudo nixos-rebuild switch --flake .#magos
+```
+
 ## Maintenance
 
 ### Rebuild After Changes

@@ -1,9 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, username, ... }:
 
 {
   imports =
   [
     ./hardware-configuration.nix
+    ./modules/wordpress-vhost.nix
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -23,13 +24,13 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
 
-  users.users.johan = {
+  users.users.${username} = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
   };
   users.users.wwwrun.extraGroups = [
     "users"
-    "johan"
+    username
   ];
 
   programs.nix-ld.enable = true;
@@ -40,7 +41,7 @@
 
     ensureUsers = [
       {
-        name = "johan";
+        name = username;
         ensurePermissions = {
           "*.*" = "ALL PRIVILEGES";
         };
@@ -50,11 +51,11 @@
 
   services.phpfpm.pools = {
     php82 = {
-      user = "johan";
+      user = username;
       group = "users";
       phpPackage = pkgs.php82;
       settings = {
-        "listen.owner" = "johan";
+        "listen.owner" = username;
         "listen.group" = "wwwrun";
         "listen.mode" = "0660";
         "pm" = "dynamic";
@@ -66,11 +67,11 @@
     };
 
     php83 = {
-      user = "johan";
+      user = username;
       group = "users";
       phpPackage = pkgs.php83;
       settings = {
-        "listen.owner" = "johan";
+        "listen.owner" = username;
         "listen.group" = "wwwrun";
         "listen.mode" = "0660";
         "pm" = "dynamic";
@@ -94,7 +95,7 @@
   };
 
   systemd.tmpfiles.rules = [
-    "d /run/phpfpm 0750 johan wwwrun -"
+    "d /run/phpfpm 0750 ${username} wwwrun -"
   ];
 
   services.openssh.enable = true;

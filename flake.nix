@@ -10,20 +10,25 @@
     k2a.url = "path:/srv/www/k2a";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+    let
+      username = "johan";
+      sites = [
+        inputs.k2a.nixosModules.vhost
+      ];
+    in {
     nixosConfigurations.magos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      specialArgs = { inherit inputs; };
+      specialArgs = { inherit inputs username; };
       modules = [
         ./nixos/configuration.nix
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.johan = import ./nixos/home.nix;
+          home-manager.users.${username} = import ./nixos/home.nix;
         }
-        inputs.k2a.nixosModules.vhost
-      ];
+      ] ++ sites;
     };
   };
 }
