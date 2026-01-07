@@ -91,6 +91,7 @@
     extraModules = [
       "proxy_fcgi"
       "proxy"
+      "rewrite"
     ];
   };
 
