@@ -20,5 +20,19 @@
     vimAlias = true;
   };
 
+  programs.tmux = {
+    enable = true;
+    shortcut = "a";
+    baseIndex = 1;
+    newSession = true;
+    mouse = true;
+    keyMode = "vi";
+  };
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
+
   xdg.configFile.nvim.source = ./../nvim; 
 }

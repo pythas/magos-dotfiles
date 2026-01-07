@@ -25,13 +25,49 @@
 
   programs.nix-ld.enable = true;
 
+  services.mysql = {
+    enable = true;
+    package = pkgs.mariadb;
+  };
+
+  services.phpfpm.pools = {
+    php82 = {
+      user = "johan";
+      phpPackage = pkgs.php82;
+      settings = {
+        "pm" = "dynamic";
+        "pm.max_children" = 5;
+        "pm.start_servers" = 2;
+        "pm.min_spare_servers" = 1;
+        "pm.max_spare_servers" = 3;
+      };
+    };
+
+    php83 = {
+      user = "johan";
+      phpPackage = pkgs.php83;
+      settings = {
+        "pm" = "dynamic";
+        "pm.max_children" = 5;
+        "pm.start_servers" = 2;
+        "pm.min_spare_servers" = 1;
+        "pm.max_spare_servers" = 3;
+      };
+    };
+  };
+
+  services.openssh.enable = true;
+
   environment.systemPackages = with pkgs; [
     wget
     vim
     git
+    php
   ];
 
-  services.openssh.enable = true;
+
+  systemd.services.phpfpm-php82.serviceConfig.RuntimeDirectory = "phpfpm";
+  systemd.services.phpfpm-php83.serviceConfig.RuntimeDirectory = "phpfpm";
 
   system.stateVersion = "25.11";
 
