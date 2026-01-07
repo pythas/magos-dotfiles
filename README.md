@@ -36,7 +36,41 @@ sudo nixos-rebuild switch --flake .#magos
 This configuration uses a **Pure Flake** approach. Each WordPress site is a separate Flake that exports a NixOS module.
 
 ### 1. Prepare the Site Flake
-Ensure the site repository (e.g., `/srv/www/mysite`) has a `flake.nix` that exports `nixosModules.vhost`.
+Create a `flake.nix` in your site's root directory (e.g., `/srv/www/mysite/flake.nix`) with the following content. This defines the development environment and the production virtual host configuration.
+
+```nix
+{
+  description = "My WordPress Site";
+
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+
+  outputs = { self, nixpkgs }:
+    let
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    in {
+      # 1. Development Shell (nix develop)
+      devShells.x86_64-linux.default = pkgs.mkShell {
+        buildInputs = [ 
+          pkgs.php82 
+          pkgs.php82Packages.composer
+          pkgs.wp-cli
+          pkgs.nodejs_20
+        ];
+      };
+
+      # 2. NixOS Host Configuration
+      nixosModules.vhost = { ... }: {
+        services.wordpress-vhosts."mysite.test" = {
+          enable = true;
+          aliases = [ "www.mysite.test" ];
+          documentRoot = "/srv/www/mysite/public";
+          logDir = "/srv/www/mysite/logs";
+          phpVersion = "php83";
+        };
+      };
+    };
+}
+```
 
 ### 2. Register in `flake.nix`
 Edit `~/magos-dotfiles/flake.nix` to register the site:
