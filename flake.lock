@@ -26,8 +26,8 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1767788326,
-        "narHash": "sha256-zL4r01hmvd3qe7+4x4kZjYuukOw/0fBSkmDFkhXJ1Vo=",
+        "lastModified": 1767790592,
+        "narHash": "sha256-R6VhINSIgQjoouP4UDySz8mhDa2TlHued2NnMOlrARQ=",
         "path": "/srv/www/k2a",
         "type": "path"
       },

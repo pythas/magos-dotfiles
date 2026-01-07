@@ -16,6 +16,7 @@
   networking.firewall.allowedTCPPorts = [
     80
     443
+    3306
   ];
 
   time.timeZone = "Europe/Stockholm";
@@ -36,6 +37,15 @@
   services.mysql = {
     enable = true;
     package = pkgs.mariadb;
+
+    ensureUsers = [
+      {
+        name = "johan";
+        ensurePermissions = {
+          "*.*" = "ALL PRIVILEGES";
+        };
+      }
+    ];
   };
 
   services.phpfpm.pools = {
@@ -74,6 +84,8 @@
 
   services.httpd = {
     enable = true;
+    user = "wwwrun";
+    group = "wwwrun";
     adminAddr = "admin@localhost";
     extraModules = [
       "proxy_fcgi"
