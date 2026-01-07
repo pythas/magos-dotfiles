@@ -7,7 +7,7 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    test.url = "path:/home/johan/projects/test";
+    k2a.url = "path:/srv/www/k2a";
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
@@ -22,7 +22,7 @@
           home-manager.useUserPackages = true;
           home-manager.users.johan = import ./nixos/home.nix;
         }
-        inputs.test.nixosModules.vhost
+        inputs.k2a.nixosModules.vhost
       ];
     };
   };

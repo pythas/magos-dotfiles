@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767619900,
-        "narHash": "sha256-KpoCBPvwHz3gAQtIUkohE2InRBFK3r0/FM6z5SPWfvM=",
+        "lastModified": 1767780135,
+        "narHash": "sha256-5SbmsLMgxzPd9YMbFR4IHfOXv6bjWs+dfl6IbSq3r7s=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "6bd04da47cfb48dfd15eabf08364b78ad894f5b2",
+        "rev": "c08430923ed417abc653884328a39e98496cfd0f",
         "type": "github"
       },
       "original": {
@@ -19,6 +19,21 @@
         "ref": "release-25.11",
         "repo": "home-manager",
         "type": "github"
+      }
+    },
+    "k2a": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1767788326,
+        "narHash": "sha256-zL4r01hmvd3qe7+4x4kZjYuukOw/0fBSkmDFkhXJ1Vo=",
+        "path": "/srv/www/k2a",
+        "type": "path"
+      },
+      "original": {
+        "path": "/srv/www/k2a",
+        "type": "path"
       }
     },
     "nixpkgs": {
@@ -56,23 +71,8 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs",
-        "test": "test"
-      }
-    },
-    "test": {
-      "inputs": {
+        "k2a": "k2a",
         "nixpkgs": "nixpkgs_2"
-      },
-      "locked": {
-        "lastModified": 1767779213,
-        "narHash": "sha256-NX5S5F6NhxO+lbtW21hqj7qv5Pnh955uR53Njkt/UU8=",
-        "path": "/home/johan/projects/test",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/johan/projects/test",
-        "type": "path"
       }
     }
   },

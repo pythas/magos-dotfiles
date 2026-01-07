@@ -13,6 +13,10 @@
 
   networking.hostName = "magos";
   networking.networkmanager.enable = true;
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 
   time.timeZone = "Europe/Stockholm";
 
@@ -22,6 +26,10 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ];
   };
+  users.users.wwwrun.extraGroups = [
+    "users"
+    "johan"
+  ];
 
   programs.nix-ld.enable = true;
 
@@ -33,8 +41,12 @@
   services.phpfpm.pools = {
     php82 = {
       user = "johan";
+      group = "users";
       phpPackage = pkgs.php82;
       settings = {
+        "listen.owner" = "johan";
+        "listen.group" = "wwwrun";
+        "listen.mode" = "0660";
         "pm" = "dynamic";
         "pm.max_children" = 5;
         "pm.start_servers" = 2;
@@ -45,8 +57,12 @@
 
     php83 = {
       user = "johan";
+      group = "users";
       phpPackage = pkgs.php83;
       settings = {
+        "listen.owner" = "johan";
+        "listen.group" = "wwwrun";
+        "listen.mode" = "0660";
         "pm" = "dynamic";
         "pm.max_children" = 5;
         "pm.start_servers" = 2;
@@ -54,6 +70,15 @@
         "pm.max_spare_servers" = 3;
       };
     };
+  };
+
+  services.httpd = {
+    enable = true;
+    adminAddr = "admin@localhost";
+    extraModules = [
+      "proxy_fcgi"
+      "proxy"
+    ];
   };
 
   systemd.tmpfiles.rules = [
@@ -66,7 +91,7 @@
     wget
     vim
     git
-    php
+    openfortivpn
   ];
 
   systemd.services.phpfpm-php82.serviceConfig.RuntimeDirectory = "phpfpm";
