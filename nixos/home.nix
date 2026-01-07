@@ -29,9 +29,12 @@
     keyMode = "vi";
   };
 
+  programs.bash.enable = true;
+
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
+    enableBashIntegration = true;
   };
 
   xdg.configFile.nvim.source = ./../nvim; 

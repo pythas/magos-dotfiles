@@ -56,6 +56,10 @@
     };
   };
 
+  systemd.tmpfiles.rules = [
+    "d /run/phpfpm 0750 johan wwwrun -"
+  ];
+
   services.openssh.enable = true;
 
   environment.systemPackages = with pkgs; [
@@ -64,7 +68,6 @@
     git
     php
   ];
-
 
   systemd.services.phpfpm-php82.serviceConfig.RuntimeDirectory = "phpfpm";
   systemd.services.phpfpm-php83.serviceConfig.RuntimeDirectory = "phpfpm";
