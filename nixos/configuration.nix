@@ -4,7 +4,7 @@
   imports =
   [
     ./hardware-configuration.nix
-    ./modules/wordpress-vhost.nix
+    ./sites/k2a.nix
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

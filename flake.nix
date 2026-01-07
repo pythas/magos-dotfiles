@@ -7,16 +7,22 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    k2a.url = "path:/srv/www/k2a";
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
       username = "johan";
-      sites = [
-        inputs.k2a.nixosModules.vhost
-      ];
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
     in {
+    devShells.x86_64-linux.k2a = pkgs.mkShell {
+      buildInputs = [
+        pkgs.php82
+        pkgs.php82Packages.composer
+        pkgs.wp-cli
+        pkgs.nodejs_20
+      ];
+    };
+
     nixosConfigurations.magos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs username; };
@@ -28,7 +34,7 @@
           home-manager.useUserPackages = true;
           home-manager.users.${username} = import ./nixos/home.nix;
         }
-      ] ++ sites;
+      ];
     };
   };
 }
