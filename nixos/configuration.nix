@@ -5,6 +5,7 @@
   [
     ./hardware-configuration.nix
     ./sites/k2a.nix
+    ./sites/default.nix
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
