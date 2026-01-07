@@ -2,7 +2,7 @@
 
 {
   services.httpd.virtualHosts."k2a.test" = {
-    serverAliases = [ "k2a.test" "investerare.k2a.test" ];
+    serverAliases = [ "k2a.test" "*.k2a.test" ];
     documentRoot = "/srv/www/k2a/k2a-wordpress/www/";
     extraConfig = ''
       ErrorLog "/srv/www/k2a/logs/apache_error.log"
