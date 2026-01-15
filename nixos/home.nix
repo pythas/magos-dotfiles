@@ -11,6 +11,7 @@
     gcc
     unzip
     lua-language-server
+    tree-sitter
   ];
 
   programs.neovim = {

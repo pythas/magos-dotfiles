@@ -18,8 +18,12 @@
       buildInputs = [
         pkgs.php82
         pkgs.php82Packages.composer
+        pkgs.php82Packages.php-cs-fixer
+        pkgs.php82Packages.phpstan
+        pkgs.php82Packages.php-codesniffer
         pkgs.wp-cli
         pkgs.nodejs_20
+        pkgs.phpactor
       ];
     };
 
