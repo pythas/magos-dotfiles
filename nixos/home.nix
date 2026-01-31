@@ -12,6 +12,7 @@
     unzip
     lua-language-server
     tree-sitter
+    gemini-cli
   ];
 
   programs.neovim = {
@@ -28,6 +29,7 @@
     newSession = true;
     mouse = true;
     keyMode = "vi";
+    escapeTime = 0;
   };
 
   programs.bash.enable = true;
