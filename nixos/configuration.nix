@@ -5,6 +5,7 @@
   [
     ./hardware-configuration.nix
     ./sites/k2a.nix
+    ./sites/coi.nix
     ./sites/default.nix
   ];
 
@@ -101,6 +102,7 @@
   ];
 
   services.openssh.enable = true;
+  services.tailscale.enable = true;
 
   environment.systemPackages = with pkgs; [
     wget

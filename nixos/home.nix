@@ -29,8 +29,11 @@
     newSession = true;
     mouse = true;
     keyMode = "vi";
-    escapeTime = 0;
-  };
+
+    plugins = with pkgs; [
+      tmuxPlugins.sensible
+    ];
+};
 
   programs.bash.enable = true;
 
