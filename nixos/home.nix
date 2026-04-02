@@ -12,7 +12,7 @@
     unzip
     lua-language-server
     tree-sitter
-    gemini-cli
+    opencode
   ];
 
   programs.neovim = {
